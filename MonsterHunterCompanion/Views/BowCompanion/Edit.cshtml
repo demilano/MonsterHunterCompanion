@@ -1,0 +1,62 @@
+﻿@model MonsterHunterCompanion.Models.DamageCalculator.Weapon
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Weapon</legend>
+
+        @Html.HiddenFor(model => model.WeaponId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DisplayRaw)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DisplayRaw)
+            @Html.ValidationMessageFor(model => model.DisplayRaw)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DisplayElementDamage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DisplayElementDamage)
+            @Html.ValidationMessageFor(model => model.DisplayElementDamage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DisplayAffinity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DisplayAffinity)
+            @Html.ValidationMessageFor(model => model.DisplayAffinity)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

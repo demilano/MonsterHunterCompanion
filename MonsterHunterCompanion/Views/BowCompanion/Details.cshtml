@@ -1,0 +1,50 @@
+﻿@model MonsterHunterCompanion.Models.DamageCalculator.Weapon
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Weapon</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DisplayRaw)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DisplayRaw)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DisplayElementDamage)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DisplayElementDamage)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DisplayAffinity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DisplayAffinity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ElementDamage)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ElementDamage)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.WeaponId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

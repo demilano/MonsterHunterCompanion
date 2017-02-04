@@ -1,0 +1,65 @@
+﻿@model MonsterHunterCompanion.Models.ViewModels.Palico.PalicoCompanionViewModel
+
+@{
+    ViewBag.Title = "Palico Companion";
+}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+        <div>
+            <h2>Palico Info</h2>
+            <div>
+                @Html.LabelFor(m => m.Name)
+                @Html.EditorFor(m => m.Name)
+
+                @Html.LabelFor(m => m.Level)
+                @Html.EditorFor(m => m.Level)
+            </div>
+            <div>
+                Support Bias
+                @Html.Label("Support Bias")
+                @Html.DropDownListFor(m => m.BiasId, Model.Biases)
+            </div>
+            <div>
+                @foreach(var villageProb in Model.VillageProbabilities)
+                {
+                    @Html.Label(villageProb.Key);
+
+                    @Html.DisplayFor(m => villageProb.Value);
+                }
+            </div>
+        </div>
+        <div>
+            <h2>Support Skills</h2>
+            <div>
+                @Html.LabelFor(m => m.Skills)
+                @Html.DropDownListFor(m => m.SkillId, Model.Skills)
+                <input id="addSupportSkill" type="button" value="Add">
+            </div>
+            <div id="supportSkills">
+               
+            </div>
+        </div>
+    
+    <input type="submit" />
+}
+
+<script language="javascript">
+
+    $(document).ready(function () {
+        $("#addSupportSkill").click(function () {
+            $.ajax({
+                url: "@Url.Action("Eee", "PalicoCompanion")",
+                cache: false,
+                success: function (result) {
+                    $("#supportSkills").append('<input class="text-box single-line" id="Things_4_" name="Things" type="text" value="' + result + '">')
+                }
+            });
+        });
+    });
+
+
+</script>

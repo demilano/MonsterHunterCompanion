@@ -1,0 +1,23 @@
+﻿@model MonsterHunterCompanion.Models.DamageCalculator.Weapons.Bow.Bow
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+ 
+    Html.RenderPartial("_bow", Model);
+    Html.RenderPartial("_charges", (Model == null || Model.Charges == null) ? new List<MonsterHunterCompanion.Models.DamageCalculator.Weapons.Bow.Charge>() : Model.Charges);
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
