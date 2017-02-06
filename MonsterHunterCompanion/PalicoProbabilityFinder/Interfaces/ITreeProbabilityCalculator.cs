@@ -7,6 +7,6 @@ namespace MonsterHunterCompanion.PalicoProbabilityFinder.Interfaces
 {
     public interface ITreeProbabilityCalculator
     {
-        decimal Calculate(int iteration, List<decimal> remainingPool, decimal givenValue, decimal givenProbabilityProduct);
+        decimal Calculate(int iteration, List<TreeProbabilityEntity> remainingPool, TreeProbabilityEntity givenValue, decimal givenProbabilityProduct);
     }
 }
