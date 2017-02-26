@@ -272,8 +272,11 @@
     <Compile Include="Models\Palico\SkillType.cs" />
     <Compile Include="Models\Palico\Village.cs" />
     <Compile Include="Models\Palico\VillageProbability.cs" />
+    <Compile Include="Models\ViewModels\Palico\FurColours.cs" />
     <Compile Include="Models\ViewModels\Palico\PalicoCompanionViewModel.cs" />
-    <Compile Include="PalicoProbabilityFinder\ProbabilityEntity.cs" />
+    <Compile Include="Models\ViewModels\Palico\SavedPalico.cs" />
+    <Compile Include="Models\ViewModels\Palico\SkillList.cs" />
+    <Compile Include="PalicoProbabilityFinder\TreeProbabilityEntity.cs" />
     <Compile Include="PalicoProbabilityFinder\VillageQueryHandler.cs" />
     <Compile Include="PalicoProbabilityFinder\Interfaces\IPalicoProbabilityQueryHandler.cs" />
     <Compile Include="PalicoProbabilityFinder\Interfaces\ISkillPatternQueryHandler.cs" />
@@ -345,9 +348,38 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="css\materialize.css" />
+    <Content Include="css\materialize.min.css" />
+    <Content Include="css\site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="fonts\roboto\Roboto-Light.eot" />
+    <Content Include="fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="fonts\roboto\Roboto-Light.woff" />
+    <Content Include="fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="fonts\roboto\Roboto-Thin.woff2" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\back.jpg" />
+    <Content Include="Images\MeownsterHunter.jpg" />
+    <Content Include="Images\PalicoIcons\Palico_Icon_White.png" />
+    <Content Include="Images\PalicoIcons\Up_Arrow_Icon_Dark_Green.png" />
+    <Content Include="js\materialize.js" />
+    <Content Include="js\materialize.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -362,7 +394,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -402,7 +436,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\PalicoCompanion\Index.cshtml" />
-    <Content Include="Views\PalicoCompanion\_skillRow.cshtml" />
+    <Content Include="Views\PalicoCompanion\_availableSkills.cshtml" />
+    <Content Include="Views\PalicoCompanion\_selectedSkills.cshtml" />
+    <Content Include="Views\PalicoCompanion\_villageProbabilities.cshtml" />
+    <Content Include="Views\PalicoCompanion\_palico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

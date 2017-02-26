@@ -9,6 +9,12 @@ namespace MonsterHunterCompanion.Models.ViewModels.Palico
 {
     public class PalicoCompanionViewModel
     {
+        public PalicoCompanionViewModel()
+        {
+            SupportSkills = new SkillList();
+            PassiveSkills = new SkillList();
+        }
+
         public string Name { get; set; }
 
         public int Level { get; set; }
@@ -19,12 +25,8 @@ namespace MonsterHunterCompanion.Models.ViewModels.Palico
 
         public Dictionary<string, decimal> VillageProbabilities { get; set; }
 
-        public int SkillId { get; set; }
+        public SkillList SupportSkills { get; set; }
 
-        public List<SelectListItem> Skills { get; set; }
-
-        public List<PalicoSkill> SelectedSkills { get; set; }
-
-        public List<string> Things { get; set; }
+        public SkillList PassiveSkills { get; set; }
     }
 }

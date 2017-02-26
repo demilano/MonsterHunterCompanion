@@ -28,17 +28,18 @@ namespace MonsterHunterCompanion.PalicoProbabilityFinder
 
             var totalProbability = query.InitialProbability > 0 ? query.InitialProbability : 1M;
             IEnumerable<VillageProbability> villageSkillProbabilitiesForGroup;
-            List<decimal> initialPool;
+            List<TreeProbabilityEntity> initialPool;
             int groupCount;
             var villageSkillProbability = 0M;
             IEnumerable<string> groupsToCheck;
-            IEnumerable<PalicoSkill> skillsForType;
+            List<PalicoSkill> skillsForType;
             var skillProbabilityForType = 1M;
             var skillProbabilityForGroup = 0M;
 
             foreach(var skillTypeId in skillTypes)
             {
-                skillsForType = query.Skills.Where(x => x.SkillGroup.Cost > 0).Where(x => x.SkillTypeId == skillTypeId);
+                skillsForType = query.Skills.Where(x => x.SkillGroup.Cost > 0).Where(x => x.SkillTypeId == skillTypeId).ToList();
+                skillsForType.AddRange(query.OptionalSkills.Where(x => x.SkillGroup.Cost > 0).Where(x => x.SkillTypeId == skillTypeId));
                 groupsToCheck = skillsForType.Select(y => y.SkillGroup.Group).Distinct();
                 skillProbabilityForType = 1M;
 
@@ -54,22 +55,29 @@ namespace MonsterHunterCompanion.PalicoProbabilityFinder
                         // for over 1, we need to use conditional probability
                         groupCount = pattern.SkillPatternList.Count(y => y.SkillGroup.Group.Equals(group)); // Depth of tree
 
-                        initialPool = villageSkillProbabilitiesForGroup.Select(x => x.Probability).ToList(); // This is all of the village probabilities by group, which should initially sum to 1 (100%)
+                        initialPool = villageSkillProbabilitiesForGroup.Select(x => new TreeProbabilityEntity() { Probability = x.Probability }).ToList(); // This is all of the village probabilities by group, which should initially sum to 1 (100%)
                         villageSkillProbability = 0M;
 
                         foreach (var skillByGroup in skillsForType.Where(x => x.SkillGroup.Group.Equals(group)))
                         {
+                            
                             villageSkillProbability = villageSkillProbabilitiesForGroup.FirstOrDefault(x => x.PalicoSkill.PalicoSkillId == skillByGroup.PalicoSkillId).Probability;
-                            initialPool.Remove(villageSkillProbability);
-                            initialPool.Add(-villageSkillProbability);
+                            var skill = initialPool.First(x => x.Probability == villageSkillProbability && x.IsToBeCalculated == false);
+                            skill.IsToBeCalculated = true;
+                            skill.UniqueId = skillByGroup.PalicoSkillId;
+                            // If optionalSkills contains skillByGroupId, find it and set it optional to true
+                            if(query.OptionalSkills.Any(x => x.PalicoSkillId == skillByGroup.PalicoSkillId)) // Should do by name
+                            {
+                                skill.IsAnOptionalRequirement = true;
+                            }
                         }
 
                         // We need to identify one of the pool as ours, so we will make it negative
                         // This first one should be a sum
                         var distinctProbabilities = initialPool.Distinct();
-                        var patternSkillProbability = distinctProbabilities.Sum(x => _treeProbabilityCalculator.Calculate(groupCount, new List<decimal>(initialPool), x, 1)); // Probability of this skill in this pattern
+                        var patternSkillProbability = distinctProbabilities.Sum(x => _treeProbabilityCalculator.Calculate(groupCount, new List<TreeProbabilityEntity>(initialPool), x, 1)); // Probability of this skill in this pattern
 
-                        skillProbabilityForGroup += patternSkillProbability * 1 / query.SkillPatterns.Count();
+                        skillProbabilityForGroup += patternSkillProbability * 1M / (decimal)query.SkillPatterns.Count();
                     };
 
                     // Since groups are independent given patterns, we can just multiple for total Probability

@@ -1,0 +1,59 @@
+﻿@model MonsterHunterCompanion.Models.ViewModels.Palico.SkillList
+
+<div class="input-field col s12 m11">
+    
+    @Html.DropDownListFor(m => Model.SelectedSkillId, Model.AvailableSkills, new { id = Model.SkillType + "SkillList" })
+    @{
+        var addButtonId = "add" + Model.SkillType + "Skill";
+        var label = Model.SkillType + " Skills";
+    }
+    @*<input id="@addButtonId" type="button" value="Add">*@
+    @Html.Label(@label)
+</div>
+<div class="input-field col s12 m1">
+    <a id="@addButtonId" class="btn-floating waves-effect waves-light inline"><i class="material-icons">add</i></a>
+    @*<a href="">
+        <img id="@addButtonId" src="~/Images/PalicoIcons/Up_Arrow_Icon_Dark_Green.png" />
+    </a>*@
+    </div>
+
+<script language="javascript">
+    $(document).ready(function () {
+        var skillType = "@Model.SkillType";
+        var options = $('#' + skillType + 'SkillList option');
+        sortOptions(options);
+
+        $("#add" + skillType + "Skill").click(function () {
+            $.ajax({
+                url: "@Url.Action("Eee", "PalicoCompanion")",
+                cache: false,
+                success: function (result) {
+                    var skillName = $("#" + skillType + "SkillList :selected").text();
+                    var skillId = $("#" + skillType + "SkillList").val();
+                    $("#" + skillType + "SkillList :selected").remove();
+                    $("#" + skillType + "Skills").append('<div id=selectedSkill' + skillType + skillId + '>' +
+                        '<input name="' + skillType + 'Skills.SelectedSkills.Index" type="hidden" value="' + skillId + '">'
+                        + '<input id="' + skillType + 'Skills_' + skillId + '__Value" name="' + skillType + 'Skills.SelectedSkills[' + skillId + '].Value" type="hidden" value="' + skillId + '">'
+                        + '<input id="' + skillType + 'Skills_' + skillId + '__Text" name="' + skillType + 'Skills.SelectedSkills[' + skillId + '].Text" type="hidden" value="' + skillName + '">'
+                    + '</div>')
+                    $("#" + skillType + "Equipped").append('<li id=listItem' + skillType + skillId + '><div class="collection-item dismissable left-align">' + skillName + ''
+                      + '<a href="#!" id=' + skillType + skillId + 'Remove class="secondary-content"><i class="material-icons">close</i></a></div></li>')
+                    @*  + '<div class="collapsible-body left-align"><input type="checkbox" id =optionalCheck' + skillId + '>'
+                        + '<label for="optionalCheck' + skillId + '">Optional</label></div></li>')*@
+                    $("#" + skillType + skillId + "Remove").click(function () {
+                        $("#selectedSkill" + skillType + skillId).remove();
+                        $("#listItem" + skillType + skillId).remove();
+                        $("#" + skillType + "SkillList").append('<option value="' + skillId + '">' + skillName + '</option>');
+
+                        var options = $('#'+ skillType + 'SkillList option');
+                        sortOptions(options);
+
+                        $('select').material_select();
+                    });
+                    $('select').material_select();
+                    $('.carousel').carousel('set', @Model.CarouselIndex);
+                }
+            });
+        })
+    });
+</script>

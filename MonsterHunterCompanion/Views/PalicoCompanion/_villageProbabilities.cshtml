@@ -1,0 +1,35 @@
+﻿@model Dictionary<string, decimal>
+
+<div class="input-field col s12">
+    <ul class="collapsible" data-collapsible="accordion">
+
+        @foreach (var key in Model.Keys)
+        {
+            <li>
+                <div class="collapsible-header left-align">@key : @Math.Round(Model[key]*100,2)%</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+        }
+    </ul>
+    <a id="calculateProbability" class="btn waves-effect waves-light">
+        Calculate
+    </a>
+</div>
+
+<script language="javascript">
+    $(document).ready(function () {
+       
+        $("#calculateProbability").click(function () {
+            $.ajax({
+                url: "@Url.Action("CalculateProbabilities", "PalicoCompanion")",
+                type: "POST",
+                data: $('#palicoForm').serialize(),
+                cache: false,
+             
+                success: function (result) {
+                    $("#villageProbabilties").html(result);
+                }
+            })
+        })
+    });
+</script>

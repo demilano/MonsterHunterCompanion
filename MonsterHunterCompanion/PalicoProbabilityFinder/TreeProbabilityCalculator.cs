@@ -43,7 +43,7 @@ namespace MonsterHunterCompanion.PalicoProbabilityFinder
             {
                 return givenProbabilityProduct * conditionalProbability;
             }
-            else if(iteration==1)
+            else if (iteration <= 1)
             {
                 return 0;
             }

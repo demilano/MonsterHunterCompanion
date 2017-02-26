@@ -1,0 +1,100 @@
+﻿body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .top-nav {
+    box-shadow: none;
+    height: 70px;
+  }
+
+.parallax-container {
+    height: 350px;
+}
+
+.carousel .indicators .indicator-item {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin: 0 12px;
+  background-color: #0094ff;
+  transition: background-color .3s;
+  border-radius: 50%;
+}
+
+ .carousel .indicators .indicator-item.active {
+  background-color: #8dd6dc;
+}
+
+ .nav-wrapper {
+     margin: 0 20px 20px 20px;
+ }
+
+ #palicoHead {
+     animation: jump10 0.5s infinite alternate;
+ }
+
+#palicoBody {
+     animation: jump10 0.5s infinite alternate;
+ }
+
+#palicoRightArm {
+     animation: rightArmJump 0.5s infinite alternate;
+ }
+
+#palicoLeftArm {
+     animation: leftArmJump 0.5s infinite alternate;
+ }
+
+.palicoMarking {
+     animation: jump8 0.5s infinite alternate;
+ }
+
+.palicoFacialFeatures {
+     animation: jump18 0.5s infinite alternate;
+ }
+
+.palicoEars {
+     animation: jump8 0.5s infinite alternate;
+ }
+
+.palicoLegs {
+     animation: jump8 0.5s infinite alternate;
+ }
+
+ @keyframes jump10 {
+     100% {
+         transform: translate(0px, -10px)
+     }
+ }
+
+@keyframes jump8 {
+    100% {
+        transform: translate(0px, -8px)
+    }
+ }
+
+@keyframes jump18 {
+    100% {
+        transform: translate(0px, -16px)
+    }
+ }
+
+@keyframes rightArmJump {
+    100% {
+        transform: translate(0px, -8px)  rotate(-4deg);
+    }
+ }
+
+@keyframes leftArmJump {
+    100% {
+        transform: translate(0px, -10px)  rotate(3deg);
+    }
+ }

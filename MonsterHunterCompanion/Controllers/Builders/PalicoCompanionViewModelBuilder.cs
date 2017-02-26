@@ -28,20 +28,29 @@ namespace MonsterHunterCompanion.Controllers.Builders
             }
             viewModel.VillageProbabilities = new Dictionary<string, decimal>();
             context.Villages.ToList().ForEach(x => viewModel.VillageProbabilities.Add(x.Name, 0M));
-            viewModel.Skills = new List<SelectListItem>();
-            viewModel.SelectedSkills = new List<PalicoSkill>();
-            viewModel.SelectedSkills.Add(new PalicoSkill()
-                {
-                    Name = "poodle"
-                });
-            context.PalicoSkills.ToList().ForEach(x => viewModel.Skills.Add(new SelectListItem()
-                {
-                    Text = x.Name,
-                    Value = x.PalicoSkillId.ToString()
-                }));
+            
+            viewModel.SupportSkills = new SkillList()
+            {
+                SkillType = "Support",
+                CarouselIndex = 0
+            };
+            viewModel.PassiveSkills = new SkillList()
+            {
+                SkillType = "Passive",
+                CarouselIndex = 1
+            };
 
-            viewModel.Things = new List<string>();
-            viewModel.Things.Add("Pooo");
+            context.PalicoSkills.Where(x => x.SkillType.Name.Equals(viewModel.SupportSkills.SkillType, StringComparison.InvariantCultureIgnoreCase)).ToList().ForEach(x => viewModel.SupportSkills.AvailableSkills.Add(new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.PalicoSkillId.ToString()
+            }));
+            context.PalicoSkills.Where(x => x.SkillType.Name.Equals(viewModel.PassiveSkills.SkillType, StringComparison.InvariantCultureIgnoreCase)).ToList().ForEach(x => viewModel.PassiveSkills.AvailableSkills.Add(new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.PalicoSkillId.ToString()
+            }));
+
 
             return viewModel;
         }

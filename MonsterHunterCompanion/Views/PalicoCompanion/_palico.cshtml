@@ -1,0 +1,58 @@
+﻿
+<svg width="110" height="200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+    <g>
+        <title>Palico</title>
+        <path id="palicoRightLeg" class="palico palicoLegs" d="m66.557402,118.704214c-3.986023,19.22506 -2.551527,23.96298 -4.532279,31.36269c-1.980752,7.39971 -0.026205,22.41679 6.043339,15.51565c6.069554,-6.90114 8.861627,-16.52017 10.152689,-24.92734c1.291062,-8.40718 4.923183,-30.37928 -1.095025,-27.84244" fill="#7B572D" />
+        <path id="palicoLeftLeg" class="palico palicoLegs" d="m42.191697,117.572138c4.15709,19.22506 2.66103,23.96298 4.72679,31.36269c2.06576,7.39971 0.02733,22.41679 -6.3027,15.51565c-6.33004,-6.90114 -9.24194,-16.52017 -10.58841,-24.92734c-1.34647,-8.40718 -5.13447,-30.37928 1.14202,-27.84244" fill="#7B572D" />
+        <path id="palicoRightArm" d="m63.110768,74.564599c14.070149,-8.72905 20.28172,-18.6875 22.642102,-26.51057c2.360382,-7.82308 7.684944,-22.25234 11.596972,-11.50944c3.912028,10.7429 -3.363584,23.93215 -9.166495,31.15923c-5.802911,7.22708 -21.036139,13.51429 -21.036139,13.19745" fill="#7B572D" />
+        <path id="palicoLeftArm" d="m46.610744,73.064596c-16.9798,-8.72905 -24.4759,-18.6875 -27.3244,-26.51057c-2.8485,-7.82308 -9.27416,-22.25234 -13.99518,-11.50944c-4.72102,10.7429 4.05916,23.93215 11.06209,31.15923c7.00293,7.22708 25.38633,13.51429 25.38633,13.19745"  fill="#7B572D" />
+        <path id="palicoRightEar" class="palico palicoEars" d="m80.782268,32.227338c3.942735,-8.088411 7.076152,-15.870927 6.01307,-16.699341c-1.06309,-0.828418 -10.361827,1.91997 -16.498579,3.39916c-6.136752,1.479191 6.542783,21.388595 10.485509,13.30018z" fill="#7B572D" />
+        <path id="palicoLeftEar" class="palico palicoEars" d="m37.451317,17.562098c-7.128385,-2.471944 -13.929091,-4.258095 -14.530107,-3.195245c-0.601018,1.062859 2.521473,9.043253 4.301625,14.354029c1.780152,5.310776 17.35687,-8.686849 10.228482,-11.158784z" fill="#7B572D" />
+        <path id="palicoBody" d="m26.886357,102.240557c4.336345,-21.001147 4.752447,-48.970485 26.640244,-46.923241c21.887797,2.047255 22.007072,25.505479 26.970912,45.440097c4.963851,19.934607 -1.530463,32.188425 -26.970912,31.350196c-25.440449,-0.838229 -30.976589,-8.865905 -26.640244,-29.867052z" fill="#d1b67d" />
+        <ellipse id="palicoHead"  ry="26.575409" rx="28.325883" cy="39.305006" cx="53.45449" fill="#d1b67d" />
+        <path id="palicoNose" class="palico palicoFacialFeatures" d="m44.773961,38.475948l8.297817,-9.071629l7.665465,9.663663c-4.644612,-1.446629 -10.476229,-1.479727 -15.963282,-0.592034z" fill="#7B572D" />
+        <ellipse id="palicoLeftEye" class="palico palicoFacialFeatures" ry="2.731129" rx="2.731129" cy="31.771748" cx="36.043153" fill="#426373" />
+        <ellipse id="palicoRightEye" class="palico palicoFacialFeatures" ry="2.731129" rx="2.731129" cy="31.771748" cx="69.901552" fill="#426373" />
+        <ellipse id="palicoStomach" class="palico palicoMarking" ry="25.83784" rx="21.745174" cy="101.528951" cx="54.254818" fill="#d1b67d" />
+        <ellipse id="palicoBigDot" class="palico palicoMarking" ry="7.776786" rx="8.000001" cy="105.491064" cx="53.714275" fill="#7B572D" />
+        <ellipse id="palicoRightDot" class="palico palicoMarking" ry="3.571429" rx="3.428573" cy="95.476182" cx="42.031735" fill="#7B572D" />
+        <ellipse id="palicoMiddleDot" class="palico palicoMarking" ry="3.571429" rx="3.428573" cy="90.714277" cx="53.714275" fill="#7B572D" />
+        <ellipse id="palicoLeftDot" class="palico palicoMarking" ry="3.571429" rx="3.428573" cy="96.047611" cx="64.698403" fill="#7B572D" />
+        </g>
+</svg>
+
+<script language="javascript">
+    $(document).ready(function () {
+        var TogglePalicoAnimation = function()
+        {
+            var playState = "running";
+            if (palicoHead.style.animationPlayState == "running") {
+                playState = "paused";
+            }
+
+            palicoRightLeg.style.animationPlayState = playState;
+            palicoLeftLeg.style.animationPlayState = playState;
+            palicoRightArm.style.animationPlayState = playState;
+            palicoLeftArm.style.animationPlayState = playState;
+            palicoRightEar.style.animationPlayState = playState;
+            palicoLeftEar.style.animationPlayState = playState;
+            palicoBody.style.animationPlayState = playState;
+            palicoHead.style.animationPlayState = playState;
+            palicoNose.style.animationPlayState = playState;
+            palicoLeftEye.style.animationPlayState = playState;
+            palicoRightEye.style.animationPlayState = playState;
+            palicoStomach.style.animationPlayState = playState;
+            palicoBigDot.style.animationPlayState = playState;
+            palicoRightDot.style.animationPlayState = playState;
+            palicoMiddleDot.style.animationPlayState = playState;
+            palicoLeftDot.style.animationPlayState = playState;
+        }
+
+        TogglePalicoAnimation();
+
+        $(".palico").click(function () {
+            TogglePalicoAnimation();
+        })
+    });
+</script>

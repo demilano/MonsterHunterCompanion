@@ -4,26 +4,27 @@
         <meta charset="utf-8" />
         <title>@ViewBag.Title - My ASP.NET MVC Application</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
+        @Styles.Render("~/css/materialize.css")
+        @Styles.Render("~/css/site.css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="~/js/materialize.js"></script>
         <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Monster Hunter Companion", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+                <nav class="top-nav blue lighten-4 ">
+                        <div class="nav-wrapper">
+                            <div class="col s12">
+                                <a href="#" class="brand-logo">Monster Hunter Companion</a>
+                                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                    Stuff
+                                </ul>
+                            </div>
+                        </div>
+                </nav>
+
         </header>
         <div id="body">
             @RenderSection("featured", required: false)
@@ -32,14 +33,23 @@
             </section>
         </div>
         <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
+            <div class="parallax-container">
+                <div class="parallax"><img src="~/Images/back.jpg" /></div>
             </div>
         </footer>
-
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
+        @*
+            Commented out since I need to be using the later version, and initialised before materialize
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+        *@
     </body>
 </html>
+<script language="javascript">
+
+    $(document).ready(function () {
+        $('select').material_select();
+        $('.carousel.carousel-slider').carousel({ fullWidth: true });
+        $('.parallax').parallax();
+    });
+
+</script>

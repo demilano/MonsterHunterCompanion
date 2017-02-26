@@ -54,6 +54,7 @@ namespace MonsterHunterCompanion.PalicoProbabilityFinder
                     {
                         VillageName = village.Name,
                         Skills = query.Skills,
+                        OptionalSkills = query.OptionalSkills,
                         SkillPatterns = skillPatterns,
                         InitialProbability = totalProbabilitySoFar
                     }));     

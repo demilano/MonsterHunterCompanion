@@ -4,62 +4,153 @@
     ViewBag.Title = "Palico Companion";
 }
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-@using (Html.BeginForm()) {
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "palicoForm"}))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-        <div>
-            <h2>Palico Info</h2>
-            <div>
-                @Html.LabelFor(m => m.Name)
-                @Html.EditorFor(m => m.Name)
+        <div class="container">
+            <div class="row">
 
-                @Html.LabelFor(m => m.Level)
-                @Html.EditorFor(m => m.Level)
             </div>
-            <div>
-                Support Bias
-                @Html.Label("Support Bias")
-                @Html.DropDownListFor(m => m.BiasId, Model.Biases)
+            <div class="row" >
+                <div class="col s6">
+                    <div class="input-field col s12 m8">
+                        <i class="material-icons prefix">
+                            <img class="responsive-img" src="~/Images/PalicoIcons/Palico_Icon_White.png" />
+                        </i>
+                        @Html.LabelFor(m => m.Name)
+                        @Html.EditorFor(m => m.Name)
+                    </div>
+                    <div class="input-field col s12 m4">
+                        @Html.LabelFor(m => m.Level)
+                        @Html.EditorFor(m => m.Level)
+                    </div>
+                    <div class="input-field col s12">
+                    @Html.DropDownListFor(m => m.BiasId, Model.Biases, new { @class = "select-dropdown" })
+                    @Html.Label("Support Bias")
+                    </div>
+                    @{Html.RenderPartial("_availableSkills", Model.SupportSkills);}
+                    @{Html.RenderPartial("_availableSkills", Model.PassiveSkills);}
+                </div>
+                <div class="col s6">
+                    <div class="carousel carousel-slider center" data-indicators="true">
+                        <div class="carousel-item" href="#one!">
+                            @Html.Label("Support Skills")
+                            @{Html.RenderPartial("_selectedSkills", Model.SupportSkills.SkillType);}
+                        </div>
+                        <div class="carousel-item" href="#two!">
+                            @Html.Label("Passive Skills")
+                            @{Html.RenderPartial("_selectedSkills", Model.PassiveSkills.SkillType);}
+                        </div>
+                        <div class="carousel-item" href="#two!">
+                            @Html.Label("Village Probabilities")
+                            <div id="villageProbabilties">
+                                @{Html.RenderPartial("_villageProbabilities", new Dictionary<string, decimal>());}
+                            </div>
+                        </div>
+                        <div class="carousel-item" href="#three!">
+                            @Html.Label("Your Palico")
+                            <div id="palico">
+                                @{Html.RenderPartial("_palico");}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                @foreach(var villageProb in Model.VillageProbabilities)
-                {
-                    @Html.Label(villageProb.Key);
-
-                    @Html.DisplayFor(m => villageProb.Value);
-                }
-            </div>
-        </div>
-        <div>
-            <h2>Support Skills</h2>
-            <div>
-                @Html.LabelFor(m => m.Skills)
-                @Html.DropDownListFor(m => m.SkillId, Model.Skills)
-                <input id="addSupportSkill" type="button" value="Add">
-            </div>
-            <div id="supportSkills">
-               
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                        Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <a id="savePalico" class="btn-floating waves-effect waves-light inline"><i class="material-icons">add</i></a>
+                </div>
             </div>
         </div>
     
-    <input type="submit" />
 }
-
 <script language="javascript">
 
+    var sortOptions = function (options) {
+        var arr = options.map(function (_, o) { return { t: $(o).text(), v: o.value }; }).get();
+        arr.sort(function (o1, o2) { return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0; });
+        options.each(function (i, o) {
+            o.value = arr[i].v;
+            $(o).text(arr[i].t);
+        });
+    }
+
+    
+    var PopulateForm = function (data) {
+        $.ajax({
+            url: "@Url.Action("Populate", "PalicoCompanion")",
+            type: "POST",
+            data: data,
+            cache: false,
+
+            success: function (result) {
+                $("#palicoForm").html(result);
+            }
+        })
+    };
+
     $(document).ready(function () {
-        $("#addSupportSkill").click(function () {
-            $.ajax({
-                url: "@Url.Action("Eee", "PalicoCompanion")",
-                cache: false,
-                success: function (result) {
-                    $("#supportSkills").append('<input class="text-box single-line" id="Things_4_" name="Things" type="text" value="' + result + '">')
-                }
-            });
+        var data = localStorage.form;
+        if(data != "")
+        {
+            PopulateForm(data);
+        }
+     
+        
+        $("#savePalico").click(function () {
+            localStorage.form = $('#palicoForm').serialize();
+            PopulateForm(localStorage.form);
         });
     });
-
-
+        
 </script>
+
+
+
+   @* <div>
+            <div id="supportSkills">
+            </div>
+            <div id="passiveSkills">
+            </div>
+
+        </div>
+    }
+
+    <script language="javascript">
+
+        $(document).ready(function () {
+            $("#addSupportSkill").click(function () {
+                $.ajax({
+                    // Pass through highest index
+                    // Can use the id as the actual id
+                    // performs validation
+                    url: "@Url.Action("Eee", "PalicoCompanion")",
+                    cache: false,
+                    success: function (result) {
+                        var skillName = $("#supportSkillList :selected").text();
+                        var skillId = $("#supportSkillList").val();
+                        $("#supportSkillList :selected").remove();
+                        $("#supportSkills").append('<input name="SelectedSupportSkills.Index" type="hidden" value="' + skillId + '">')
+                        $("#supportSkills").append('<input id="SelectedSupportSkills_' + skillId + '__Value" name="SelectedSupportSkills[' + skillId + '].Value" type="hidden" value="' + skillId + '">')
+                        $("#supportSkills").append('<input class="text" id="SelectedSupportSkills_' + skillId + '__Text" name="SelectedSupportSkills[' + skillId + '].Text" type="text" value="' + skillName + '">')
+                    }
+                });
+            });
+
+            /*
+                                var skillName = $("#supportSkillList :selected").text();
+                        var skillId = $("#supportSkillList").val();
+                        $("#supportSkillList :selected").remove();
+                        $("#supportSkills").append('<input class="text-box single-line" id="Things_' + skillId + '_" name="Things" type="text" value="' + skillName + '">')
+                        */
+        });
+
+
+    </script>*@
