@@ -12,9 +12,6 @@
 </div>
 <div class="input-field col s12 m1">
     <a id="@addButtonId" class="btn-floating waves-effect waves-light inline"><i class="material-icons">add</i></a>
-    @*<a href="">
-        <img id="@addButtonId" src="~/Images/PalicoIcons/Up_Arrow_Icon_Dark_Green.png" />
-    </a>*@
     </div>
 
 <script language="javascript">
@@ -25,8 +22,9 @@
 
         $("#add" + skillType + "Skill").click(function () {
             $.ajax({
-                url: "@Url.Action("Eee", "PalicoCompanion")",
+                url: "@Url.Action("AddSkill", "PalicoCompanion")",
                 cache: false,
+                data: { skillToAdd: $("#" + skillType + "SkillList").val(),  equipped: $("#palicoForm").serialize() },
                 success: function (result) {
                     var skillName = $("#" + skillType + "SkillList :selected").text();
                     var skillId = $("#" + skillType + "SkillList").val();
